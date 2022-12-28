@@ -1,0 +1,17 @@
+{
+    "name": "Bme280",
+    "keywords": "i2c, environment, pressure, temperature, humidity",
+    "description": "Cooperative multitasking for Arduino, ESPx, STM32 and other microcontrollers",
+    "authors":
+    [
+      {
+        "name": "Chris Reahard",
+        "email": "creahard@gmail.com",
+        "maintainer": true
+      }
+    ],
+    "version": "1.0.0",
+    "frameworks": "arduino",
+    "platforms": "*"
+  }
+  

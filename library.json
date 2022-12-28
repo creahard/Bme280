@@ -1,7 +1,13 @@
 {
     "name": "Bme280",
+    "version": "v1.0.0",
     "keywords": "i2c, environment, pressure, temperature, humidity",
-    "description": "Cooperative multitasking for Arduino, ESPx, STM32 and other microcontrollers",
+    "description": "Arduino library to interact with the Bme280 temperature, pressure, and humidity sensor via I2C",
+    "repository": 
+    {
+      "type": "git",
+      "url": "https://github.com/creahard/Bme280.git"
+    },
     "authors":
     [
       {
@@ -10,7 +16,6 @@
         "maintainer": true
       }
     ],
-    "version": "1.0.0",
     "frameworks": "arduino",
     "platforms": "*"
   }

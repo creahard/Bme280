@@ -1,5 +1,5 @@
 #include <Arduino.h>
-#include <bme280.hpp>
+#include <Bme280.hpp>
 
 #define SDA_PIN   2
 #define SCL_PIN   0
@@ -13,15 +13,15 @@ void setup() {
   Serial.println();
 
   myWire = new TwoWire();
-  bme280 = new Bme280(myWire);
-
-  Serial.println("Setting up TWI/I2C.");
   myWire->begin(SDA_PIN, SCL_PIN);
+  bme280 = new Bme280(myWire);
+ 
+  Serial.println("Setting up TWI/I2C.");
   if(myWire->status() != 0) {
     Serial.println("I2C bus NOT OK.");
   }
-  if(bme280->begin() == false) {
-    if(bme280->configure(0x00049080) == false) {
+  if(bme280->begin()) {
+    if(bme280->configure(BME280_HUMID_OS_4, (BME280_TEMP_OS_4 | BME280_PRES_OS_4 | BME280_MODE_NORMAL), BME280_DELAY_500) == false) {
       Serial.println("Failed to configure BME280 sensor!");
       Serial.print("Error code: ");
       Serial.println(bme280->error);
@@ -38,7 +38,7 @@ void loop() {
   uint8_t status = myWire->status();
   switch (status) {
     case 0:
-      if (bme280->ready()) {
+      if (true) { //bme280->ready()) {
         if (bme280->measure()) {
           delay(500);
           bme280->read();
@@ -56,6 +56,8 @@ void loop() {
         }
       } else {
         Serial.println("BME280 is not ready!");
+        Serial.print("Error code: ");
+        Serial.println(bme280->error);
       }
       break;
     case 1:

@@ -70,17 +70,17 @@ bool Bme280::begin() {
   }
 }
 
-bool Bme280::configure(uint32_t values) {
+bool Bme280::configure(uint8_t humid, uint8_t pres_temp, uint8_t config) {
   // This took TOO long to get in the right order.
-  if(!this->sendByte(BME280_REG_CTRL_HUMI, (values >> 16) & 0xFF)) {
+  if(!this->sendByte(BME280_REG_CTRL_HUMI, humid)) {
     this->error = BME280_ERROR_I2C_WRITE;
     return false;
   }
-  if(!this->sendByte(BME280_REG_CONFIG, (values) & 0xFF)) {
+  if(!this->sendByte(BME280_REG_CONFIG, config)) {
     this->error = BME280_ERROR_I2C_WRITE;
     return false;
   }
-  if(!this->sendByte(BME280_REG_CTRL_MEAS, (values >> 8) & 0xFF)) {
+  if(!this->sendByte(BME280_REG_CTRL_MEAS, pres_temp)) {
     this->error = BME280_ERROR_I2C_WRITE;
     return false;
   }
@@ -189,11 +189,13 @@ bool Bme280::ready() {
     return false;
   }
   if(!this->readByte(BME280_REG_STATUS, &status)) {
+    this->error = BME280_ERROR_NO_ANSWER;
     return false;
   }
   if (status == 0) {
     return true;
   } else {
+    this->error = BME280_ERROR_NONE;
     return false;
   }
 }

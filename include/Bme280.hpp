@@ -43,6 +43,46 @@
 #define BME280_REG_COMP_H5_LSB  0xE6
 #define BME280_REG_COMP_H6      0xE7
 
+#define BME280_HUMID_SKIP       0x0
+#define BME280_HUMID_OS_1       0x1
+#define BME280_HUMID_OS_2       0x2
+#define BME280_HUMID_OS_4       0x3
+#define BME280_HUMID_OS_8       0x4
+#define BME280_HUMID_OS_16      0x5
+
+#define BME280_PRES_SKIP        0x0
+#define BME280_PRES_OS_1        0x20
+#define BME280_PRES_OS_2        0x40
+#define BME280_PRES_OS_4        0x60
+#define BME280_PRES_OS_8        0x80
+#define BME280_PRES_OS_16       0xA0
+
+#define BME280_TEMP_SKIP        0x0
+#define BME280_TEMP_OS_1        0x4
+#define BME280_TEMP_OS_2        0x8
+#define BME280_TEMP_OS_4        0xC
+#define BME280_TEMP_OS_8        0x10
+#define BME280_TEMP_OS_16       0x14
+
+#define BME280_MODE_SLEEP       0x0
+#define BME280_MODE_FORCED      0x1
+#define BME280_MODE_NORMAL      0x3
+
+#define BME280_DELAY_0_5        0x0
+#define BME280_DELAY_62_5       0x20
+#define BME280_DELAY_125        0x40
+#define BME280_DELAY_250        0x60
+#define BME280_DELAY_500        0x80
+#define BME280_DELAY_1000       0xA0
+#define BME280_DELAY_10         0xC0
+#define BME280_DELAY_20         0xE0
+
+#define BME280_FILTER_OFF       0x0
+#define BME280_FILTER_2         0x4
+#define BME280_FILTER_4         0x8
+#define BME280_FILTER_8         0xC
+#define BME280_FILTER_16        0x10
+
 #define BME280_REG_ID           0xD0
 #define BME280_REG_RESET        0xE0
 #define BME280_REG_CTRL_HUMI    0xF2
@@ -110,6 +150,7 @@ class Bme280 {
     compTable_t compensation;
     uint8_t H1;
     compTableH_t compH;
+    //bool readByte(uint8_t reg, uint8_t *data);
     bool readByte(uint8_t reg, uint8_t *data);
     bool sendByte(uint8_t reg, uint8_t data);
     bool readTable(uint8_t reg, size_t len, uint8_t *data);
@@ -118,7 +159,7 @@ class Bme280 {
     Bme280(TwoWire *myWire, uint8_t addr);
     uint8_t error;
     bool begin();
-    bool configure(uint32_t confRegs);
+    bool configure(uint8_t humid, uint8_t pres_temp, uint8_t config);
     bool standby();
     bool continuous();
     bool measure();

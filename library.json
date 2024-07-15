@@ -1,6 +1,6 @@
 {
     "name": "Bme280",
-    "version": "v1.0.0",
+    "version": "v1.0.1",
     "keywords": "i2c, environment, pressure, temperature, humidity",
     "description": "Arduino library to interact with the Bme280 temperature, pressure, and humidity sensor via I2C",
     "repository": 
